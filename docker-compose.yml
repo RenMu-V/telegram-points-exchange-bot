@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  exchange-bot:
+    build: . # 在当前目录下构建 Dockerfile
+    container_name: tg_exchange_bot
+    restart: unless-stopped # 除非手动停止，否则容器会在退出时自动重启
+    volumes:
+      # 将本地的 config.ini 文件挂载到容器内的 /app/config.ini
+      # 这样你就可以在宿主机上修改配置，而无需重新构建镜像
+      - ./config.ini:/app/config.ini:ro
+    # 你可以添加其他配置，比如日志卷
+      - ./logs:/app/logs
